@@ -12,7 +12,7 @@ npm install -S shopify-node-api
 
 ## Configure Public App
 
-Public apps are apps intended to appear in the [Shopify App Store](https://apps.shopify.com) and require OAuth2 to access shop data.
+Public apps are apps intended to appear in the [Shopify App Store](https://apps.shopify.com?ref=grenadeapps) and require OAuth2 to access shop data.
 
 ```js
 var shopifyAPI = require('shopify-node-api');
@@ -45,7 +45,7 @@ var Shopify = new shopifyAPI({
 });
 ```
 
-Note: If you are building a [private Shopify app](https://docs.shopify.com/api/authentication/creating-a-private-app), then you don't need to go through the OAuth authentication process. You can skip ahead to the Making Requests section.
+Note: If you are building a [private Shopify app](https://docs.shopify.com/api/authentication/creating-a-private-app?ref=grenadeapps), then you don't need to go through the OAuth authentication process. You can skip ahead to the Making Requests section.
 
 
 ### CAUTION!!!
@@ -80,7 +80,7 @@ res.redirect(auth_url);
 
 After the user visits the authenticaion url they will be redirected to the location you specified in the configuration redirect_url parameter.
 
-Shopify will send along some query parameters including: code (your temporary token), signature, shop, state and timestamp. This module will verify the authenticity of the request from shopify as outlined here in the [Shopify OAuth Docs](http://docs.shopify.com/api/tutorials/oauth)
+Shopify will send along some query parameters including: code (your temporary token), signature, shop, state and timestamp. This module will verify the authenticity of the request from shopify as outlined here in the [Shopify OAuth Docs](http://docs.shopify.com/api/tutorials/oauth?ref=grenadeapps)
 
 ```js
 
@@ -194,6 +194,12 @@ Shopify.delete('/admin/products/1234567.json', function(err, data, headers){
 });
 ```
 
+## Errors
+
+Every response from Shopify's API is parsed and checked if it looks like an error. Three keys are used to determine an error response: 'error_description', 'error', and 'errors'. If any of these keys are found in the response, an error object will be made with the first found key's value as the error message and the response's status code as the error's code. This error object will be passed as the first parameter in the callback, along with the response JSON and response headers.
+
+If an error occurs while making a request, the callback will be passed an error object provided from `https` as the only parameter.
+
 ## OPTIONS
 
 
@@ -212,7 +218,7 @@ var config = {
 
 **Note**: *This module has been updated to use HMAC parameter instead of the deprecated "signature"*.
 
-From the [shopify docs](http://docs.shopify.com/api/tutorials/oauth):
+From the [shopify docs](http://docs.shopify.com/api/tutorials/oauth?ref=grenadeapps):
 
 "Every request or redirect from Shopify to the client server includes a signature and hmac parameters that can be used to ensure that it came from Shopify. **The signature attribute is deprecated due to vulnerabilities in how the signature is generated.**"
 
@@ -256,22 +262,20 @@ var config = {
 }
 ```
 
+# Become a Shopify App Developer
+
+[Join the Shopify Partner Program](https://app.shopify.com/services/partners/signup?ref=grenadeapps)
 
 # Testing
 
 ~~~
+npm install
 npm test
 ~~~
 
 
 # Contributing
 
-Shopify has been kind enough to list this module on their [Official Documentation](http://docs.shopify.com/api/libraries/node). As such it is important that this module remain as bug free and up to date as possible in order to make the experience with node.js/Shopify as seamless as possible.
+Shopify has been kind enough to list this module on their [Official Documentation](http://docs.shopify.com/api/libraries/node?ref=grenadeapps). As such it is important that this module remain as bug free and up to date as possible in order to make the experience with node.js/Shopify as seamless as possible.
 
 I will continue to make updates as often as possible but we are more than happy to review any feature requests and will be accepting pull requests as well.
-
-Special thanks to [robotmayo](https://github.com/robotmayo) & [jarofghosts](https://github.com/jarofghosts) for the helpful tips and contributions!
-
-# Donations
-
-If you would like to contribute in a small way or just say thanks, I gratefully accept [gittip](https://www.gittip.com/sinechris/).
